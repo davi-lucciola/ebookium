@@ -36,7 +36,21 @@ FastAPI then serves the built React app directly from `http://localhost:8000/`, 
 
 ## Docker
 
+### Production
+
 ```bash
 docker build -t ebookium .
 docker run -p 8000:8000 ebookium
 ```
+
+### Development (hot reload)
+
+```bash
+docker compose up --build
+```
+
+- Frontend (HMR): http://localhost:5173
+- Backend API docs: http://localhost:8000/api/docs
+- Postgres data: `./data/postgres/`
+
+Rebuild images when dependencies change (`pyproject.toml`, `uv.lock`, `package.json`, `pnpm-lock.yaml`). Source edits reload automatically.
