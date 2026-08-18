@@ -4,16 +4,65 @@ version = "0.1.0"
 description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.16.1",
     "fastapi[standard]>=0.141.1",
-    "langchain>=1.3.14",
-    "langchain-openai>=1.4.3",
+    "psycopg[binary]>=3.2.0",
+    "pwdlib[bcrypt]>=0.2.1",
     "pydantic-settings>=2.7.0",
+    "pyjwt>=2.10.1",
+    "sqlalchemy[asyncio]>=2.0.41",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx2>=2.0.0",
     "pytest>=8.3.0",
+    "pytest-asyncio>=1.3",
+    "pytest-sugar>=1.1.1",
+    "ruff>=0.11.11",
+    "taskipy>=1.14.1",
+    "testcontainers[postgres]>=4.10.0",
 ]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+preview = true
+select = ["I", "F", "E", "W", "PL", "PT", "B"]
+ignore = ["B008", "PLR0913", "PLR0917"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["PLR2004"]
+
+[tool.ruff.format]
+preview = true
+quote-style = "single"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "--strict-markers"
+markers = [
+    "unit: unit tests (tests/unit)",
+    "integration: integration tests (tests/integration)",
+    "auth: authentication domain",
+    "users: users domain",
+    "infra: infrastructure layer",
+    "health: health endpoint",
+]
+
+[tool.taskipy.tasks]
+lint = "ruff check"
+format = "ruff format"
+dev = "uv run --env-file .env fastapi dev app/main.py --host 0.0.0.0 --port 8000"
+test = "task test_unit && task test_integration"
+pre_test = "task lint"
+test_unit = "uv run --env-file .env pytest tests/unit -x"
+test_integration = "uv run --env-file .env pytest tests/integration -x"
+pre_format = "ruff check --fix"
+migrate = "uv run --env-file .env alembic upgrade head"
+migrate_create = "uv run --env-file .env alembic revision --autogenerate -m"
