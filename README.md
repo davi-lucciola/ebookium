@@ -23,6 +23,7 @@ uv run pytest
 cd frontend
 pnpm install
 pnpm dev   # http://localhost:5173, proxies /api to http://localhost:8000
+pnpm test  # run frontend unit tests
 ```
 
 ## Production build
