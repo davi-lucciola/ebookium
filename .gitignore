@@ -13,9 +13,8 @@ wheels/
 # Env
 .env
 
-# Node / frontend
+# JS / frontend
 node_modules/
-.pnpm-store/
 
 # Test artifacts
 .pytest_cache/

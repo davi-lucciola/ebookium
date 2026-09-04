@@ -24,8 +24,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app/backend
-      - backend-venv:/app/backend/.venv
+      - .:/app
+      - backend-venv:/app/.venv
+    working_dir: /app/backend
     environment:
       APP_DATABASE_URL: postgresql+psycopg://ebookium:ebookium@postgres:5432/ebookium
       APP_TOKEN_SECRET: dev-secret-change-me
@@ -42,8 +43,8 @@ services:
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app/frontend
-      - frontend-node-modules:/app/frontend/node_modules
+      - .:/app
+      - frontend-node-modules:/app/node_modules
     environment:
       VITE_API_PROXY_TARGET: http://backend:8000
     depends_on:

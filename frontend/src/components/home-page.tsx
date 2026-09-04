@@ -104,28 +104,26 @@ export function HomePage() {
           <Card>
             <CardHeader>
               <CardTitle>Backend</CardTitle>
-              <CardDescription>FastAPI with uv and pytest</CardDescription>
+              <CardDescription>FastAPI with uv workspace and pytest</CardDescription>
             </CardHeader>
             <CardContent>
               <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm leading-relaxed">
-                {`cd backend
-uv sync
-uv run fastapi dev app/main.py
-uv run pytest`}
+                {`uv sync
+bun run dev:api
+bun run test_unit:api`}
               </pre>
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle>Frontend</CardTitle>
-              <CardDescription>React with Vite, Biome, and Vitest</CardDescription>
+              <CardDescription>React with Vite, Bun, Biome, and Vitest</CardDescription>
             </CardHeader>
             <CardContent>
               <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-sm leading-relaxed">
-                {`cd frontend
-pnpm install
-pnpm dev
-pnpm test`}
+                {`bun install
+bun run dev
+bun run test`}
               </pre>
             </CardContent>
           </Card>
