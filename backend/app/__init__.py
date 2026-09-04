@@ -41,7 +41,9 @@ def create_app(
     api.include_exception_handlers(app)
 
     if settings.env != 'development':
-        frontend_dist = Path(__file__).resolve().parent.parent.parent / 'frontend' / 'dist'
+        frontend_dist = (
+            Path(__file__).resolve().parent.parent.parent / 'frontend' / 'dist'
+        )
         app.frontend('/', directory=str(frontend_dist), fallback='index.html')
 
     return app

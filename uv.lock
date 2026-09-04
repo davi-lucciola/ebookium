@@ -6,6 +6,12 @@ resolution-markers = [
     "python_full_version < '3.14'",
 ]
 
+[manifest]
+members = [
+    "ebookium",
+    "ebookium-workspace",
+]
+
 [[package]]
 name = "alembic"
 version = "1.19.1"
@@ -296,7 +302,7 @@ wheels = [
 [[package]]
 name = "ebookium"
 version = "0.1.0"
-source = { virtual = "." }
+source = { virtual = "backend" }
 dependencies = [
     { name = "alembic" },
     { name = "fastapi", extra = ["standard"] },
@@ -339,6 +345,11 @@ dev = [
     { name = "taskipy", specifier = ">=1.14.1" },
     { name = "testcontainers", extras = ["postgres"], specifier = ">=4.10.0" },
 ]
+
+[[package]]
+name = "ebookium-workspace"
+version = "0.0.0"
+source = { virtual = "." }
 
 [[package]]
 name = "email-validator"
